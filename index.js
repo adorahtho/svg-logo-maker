@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
-const shapes
+const shapes = require('./lib/shapes.js')
 
 class Logo {
   constructor(shape, text){
