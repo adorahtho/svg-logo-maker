@@ -1,11 +1,14 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
-const { Triangle, Circle, Square } = require('./lib/shapes.js')
+const { Triangle, Circle, Square } = require('./lib/shapes')
+const Text = require('./lib/text')
 
 class CreateLogo {
   constructor(){
-    this.text = []
-    this.shape = []
+    this.text = ''
+    this.textColor = ''
+    this.shape = ''
+    this.shapeColor = ''
   }
   askQuestions() {
     return inquirer
@@ -22,15 +25,9 @@ class CreateLogo {
         },
       ])
       .then(({text, textColor}) => {
-        this.text.push({text, textColor})
-        console.log(this.text)
+        this.text = text
+        this.textColor = textColor
         return this.askShapeQs()
-      })
-      .then(() => {
-        return fs.writeFile(
-          join(__dirname, 'examples', 'logo.svg')
-          
-        )
       })
   }
   askShapeQs() {
@@ -40,7 +37,7 @@ class CreateLogo {
           type: 'list',
           name: 'shape',
           message: 'Please select a shape.',
-          choices: ['circle', 'triangle', 'square']
+          choices: ['Circle', 'Triangle', 'Square']
         },
         {
           type: 'input',
@@ -49,24 +46,52 @@ class CreateLogo {
         },
       ])
       .then(({shape, shapeColor}) => {
-        this.shape.push({ shape, shapeColor})
-        console.log(this.shape)
+        this.shape = shape
+        this.shapeColor = shapeColor
       })
   }
-}
-
-function createSvg(){
-  const shapeEl = new Shape
-
-  return `<svg version="1.1"
-  width="300" height="200"
-  xmlns="http://www.w3.org/2000/svg">
-
-${shapeAndText}
-
-</svg>`
+  renderSvgCode(){
+    const shapeEl = this.getShapeEl()
+    const textEl = new Text(this.text, this.textColor).render()
+  
+    return `<svg version="1.1"
+    width="300" height="200"
+    xmlns="http://www.w3.org/2000/svg">
+  
+  ${shapeEl}
+  
+  ${textEl}
+  
+  </svg>`
+  }
+  getShapeEl(){
+    switch (this.shape) {
+      case 'Circle':
+        return new Circle(this.shapeColor).render();
+      case 'Triangle':
+        return new Triangle(this.shapeColor).render();
+      case 'Square':
+        return new Square(this.shapeColor).render();
+      default:
+        throw new Error('Invalid shape');
+    }
+  }
+  saveSvgToFile(svgCode, filename) {
+    fs.writeFileSync(filename, svgCode, 'utf8')
+    console.log(`SVG file "{filename}" created successfully.`)
+  }
+  createSvg() {
+    const svgCode = this.renderSvgCode()
+    const filename = 'logo.svg'
+    this.saveSvgToFile(svgCode, filename)
+  }
 }
 
 const createLogo = new CreateLogo()
 
-createLogo.askQuestions()
+createLogo.askQuestions().then(() => {
+  createLogo.createSvg()
+})
+
+
+//make text (3 characters) be in svg code
