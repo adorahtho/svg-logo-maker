@@ -1,4 +1,5 @@
 const inquirer = require('inquirer')
+const path = require('path')
 const fs = require('fs')
 const { Triangle, Circle, Square } = require('./lib/shapes')
 const Text = require('./lib/text')
@@ -76,22 +77,23 @@ class CreateLogo {
         throw new Error('Invalid shape');
     }
   }
-  saveSvgToFile(svgCode, filename) {
-    fs.writeFileSync(filename, svgCode, 'utf8')
-    console.log(`SVG file "{filename}" created successfully.`)
-  }
-  createSvg() {
-    const svgCode = this.renderSvgCode()
-    const filename = 'logo.svg'
-    this.saveSvgToFile(svgCode, filename)
+  createSvgFile(svgCode) {
+    fs.writeFile(
+      path.join(__dirname, 'examples', 'logo.svg'),
+      svgCode, (err) => {
+        if(err) {
+          console.error('Failed to create logo.svg file.', err)
+        }else {
+          console.log(`Generated logo.svg`)
+        }
+      }
+    )
   }
 }
 
 const createLogo = new CreateLogo()
 
 createLogo.askQuestions().then(() => {
-  createLogo.createSvg()
+  const svgCode = createLogo.renderSvgCode()
+  createLogo.createSvgFile(svgCode)
 })
-
-
-//make text (3 characters) be in svg code
