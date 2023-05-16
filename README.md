@@ -1,5 +1,6 @@
 # svg-logo-maker
 The svg logo maker creates a simple logo based on answers to the questions given in the command line of the terminal.
+
 ## Technologies Used
 * Node.js  
 * npm  
@@ -10,6 +11,7 @@ The svg logo maker creates a simple logo based on answers to the questions given
 
 ## Description
 The svg logo maker collects the users inputs with the command line application. It's purpose to to save time and money when needing a logo for projects. The application gives the user the option to choose up to three characters, the text color, three different options for shapes, and the shape's color. 
+
 ## Installation
 1. Create the following directory structure.  
 ![directory structure](./images/directory-structure-ss.png)  
@@ -20,10 +22,12 @@ The svg logo maker collects the users inputs with the command line application. 
 
 ## Usage
 The application will be invoked by using the following command in the terminal, "node index.js". 
+
 ## Tests
 To run tests, enter "npm test" in the terminal.
+
 ## Link to Walkthrough Video
- 
+ https://drive.google.com/file/d/1Q0GyxRTZzh2UIzzADG25RwZwEIMUuSWo/view 
 
 ## Author & Acknowledgements
 * https://github.com/thoak90codes
