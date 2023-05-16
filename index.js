@@ -1,3 +1,4 @@
+//packages needed for application
 const inquirer = require('inquirer')
 const path = require('path')
 const fs = require('fs')
@@ -11,6 +12,7 @@ class CreateLogo {
     this.shape = ''
     this.shapeColor = ''
   }
+  //prompts for text and text color
   askQuestions() {
     return inquirer
       .prompt([
@@ -31,6 +33,7 @@ class CreateLogo {
         return this.askShapeQs()
       })
   }
+  //prompts for shape and shape color
   askShapeQs() {
     return inquirer
       .prompt([
@@ -51,6 +54,7 @@ class CreateLogo {
         this.shapeColor = shapeColor
       })
   }
+  //render svg code for logo
   renderSvgCode(){
     const shapeEl = this.getShapeEl()
     const textEl = new Text(this.text, this.textColor).render()
@@ -65,6 +69,7 @@ class CreateLogo {
   
   </svg>`
   }
+  //get the correct shape to render
   getShapeEl(){
     switch (this.shape) {
       case 'Circle':
@@ -77,6 +82,7 @@ class CreateLogo {
         throw new Error('Invalid shape');
     }
   }
+  //create the logo.svg file
   createSvgFile(svgCode) {
     fs.writeFile(
       path.join(__dirname, 'examples', 'logo.svg'),
