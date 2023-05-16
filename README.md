@@ -11,8 +11,8 @@ The svg logo maker creates a simple logo based on answers to the questions given
 ## Description
 The svg logo maker collects the users inputs with the command line application. It's purpose to to save time and money when needing a logo for projects. The application gives the user the option to choose up to three characters, the text color, three different options for shapes, and the shape's color. 
 ## Installation
-1. Create the following directory structure.
-![directory structure](./images/directory-structure-ss.png)
+1. Create the following directory structure.  
+![directory structure](./images/directory-structure-ss.png)  
 2. Enter, "npm init -y", to create the package.json file.  
 3. Enter, "npm i inquirer@8.2.4", in the terminal to install Inquirer for collecting input from the user.  
 4. Enter, "npm i jest", in the terminal to install Jest for running tests. 
